@@ -29,4 +29,15 @@ A real-time accident detection and response system using ResNet deep learning al
 ---
 
 ## 🗂 Project Folder Structure
+accident-detection/
+├── app.py
+├── detection.py
+├── model_weights.keras <-- (not included in repo)
+├── model.json <-- (ResNet model architecture)
+├── ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt
+├── templates/
+├── static/
+├── .gitignore
+├── requirements.txt
+└── README.md
 
