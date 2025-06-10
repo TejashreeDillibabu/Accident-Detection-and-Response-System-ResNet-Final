@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+  </head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2? family=poppins:wght@300;400;500;600;700;800;900;& display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins',sans-serif;
+}
+    body{
+      background-color: black;
+            background-image: url("static/staff.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh; 
+    }
+    .queries {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin-top: 200px;
+    }
+    .queries label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    .queries textarea {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+        box-sizing: border-box;
+    }
+    .queries input[type='submit'] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+       
+    }
+    .queries input[type='submit']:hover {
+        background-color: #0056b3;
+    }
+    header {
+    background-color: rgba(22, 34, 57, 0.95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    box-shadow: 0 0 25px 0 black;
+}
+.container {
+            position: fixed;
+            top: 25px;
+            right: 50px;
+        }
+
+        .container a {
+         
+    padding: 10px 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: white;
+    border: 2px solid transparent;
+    transition: all 0.5s;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.container a:hover,
+.container a:active {
+    border: 2px solid #f5a425;
+
+}
+input[type="submit"]{
+    background-color: #f5a425;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+  </style>
+  <body>
+    <header>
+      <nav>
+          <div class="container">
+              <a href="/staffview">Back</a>
+              
+          </div>
+          </nav>
+      </header>
+      <div class="queries">
+    <form action='/staffreply' method='post' enctype='multipart/form-data'>
+        <label>Query</label>
+        <textarea name="query" class="review-textarea" placeholder="Write your query here..."></textarea>
+        <input type='submit' value='Submit'>
+    </form>
+  </div>
+  </body>
+</html>

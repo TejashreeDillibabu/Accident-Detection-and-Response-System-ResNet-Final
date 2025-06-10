@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studentpage</title>
+    <style>
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+margin: 0;
+
+font-family: "Poppins", sans-serif;
+}
+body {
+ background-image: url("static/hospital.jpg");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 100vh; 
+}
+        header{
+            background-color: rgba(22, 34, 57, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            box-shadow: 0 0 25px 0 rgb(255, 255, 255);
+        }
+        .container{
+            position: fixed;
+            top: 25px;
+            right: 10px;
+        }
+        .container a{
+            padding: 10px 20px;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: white;
+    border: 2px solid transparent;
+    transition: all 0.5s;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.container a:hover,
+.container a:active {
+    border: 2px solid #f5a425;
+
+}
+        .responsive-table {
+    width: 100%;
+ list-style-type: none;
+ padding: 0;
+ margin-top: 50px;
+}
+
+.table-header {
+    background-color: white;
+
+ box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+ color: rgb(255, 0, 0);
+ display: flex;
+ justify-content: space-between;
+ border-radius: 3px;
+ padding: 15px;
+ font-weight: bold;
+ text-transform: capitalize;
+}
+
+.table-row {
+ background-color: #ffffff;
+ box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+ border-radius: 3px;
+ padding: 15px;
+ margin-bottom: 20px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-top: 10px;
+}
+
+.table-header > .col,
+.table-row > .col {
+    width: calc(180% / 10); /* Assuming there are 6 columns */
+    /* You can adjust the number of columns as per your actual structure */
+    /* You can also adjust this value as needed */
+}
+
+@media all and (max-width: 767px) {
+ .table-header {
+   display: none;
+ }
+ .table-row {
+   display: block;
+ }
+}    
+label{
+    margin-right: 10px;
+    font-weight: bold;
+}    
+ input[type="text"],
+ input[type="password"] {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid black;
+
+ }     
+button{
+
+    padding: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    background-color: greenyellow;
+    font-weight: bold;
+    text-transform: capitalize;
+    
+ }
+button:hover{
+    background-color: rgb(122, 201, 3);
+ }   
+ h1{
+    text-transform: capitalize;
+    color: rgb(255, 0, 0);
+ }
+ .fa-sign-out {
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    color: #eea412;
+    font-size:35px;
+
+ }
+
+    </style>
+</head>
+<body>
+     <header class="header">
+
+        <nav class="navbar">
+            <div class="container">
+                <a href="/">
+                <i class="fa fa-sign-out" ></i>
+            </a>
+            <a href="/" id="register-btn">
+                  Logout
+            </a>
+              <a href="#" id="login-btn" onclick="showstaffdetails()">
+                New Accidents
+              </a>
+              <a href="#" id="register-btn" onclick="showencryptuserdetails()">
+                All Accident Records
+              </a>
+             
+
+           
+
+        </div>
+        </nav>
+    </header>
+   <section class ="about"></section>
+
+    <div class="about-content">
+        
+	 <div id="new_case"  style="display: none; margin-top: 100px;">
+
+        <center>
+        <h1> New Accident Data</h1>
+        </center>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">S.No</div>
+                <div class="col col-2">Accident Type</div>
+                <div class="col col-3">Person Count</div>
+                <div class="col col-4">Date & Time</div>
+                <div class="col col-5">Accident Image</div>
+				<div class="col col-6"> Take Action</div>
+          
+        
+        
+            </li>
+            {% for complaint in data1 %}
+
+                <form action="/approve_hos" method="post" onsubmit="showAlert()">
+                    <li class="table-row">
+                    <div class="col col-1" data-label="S.No1">{{ complaint[0] }} </div>
+             <div class="col col-2" data-label="S.No2">{{ complaint[1] }} </div>
+             <div class="col col-3" data-label="S.No3">{{ complaint[2] }} </div>
+			 <div class="col col-3" data-label="S.No4">{{ complaint[3] }} </div>
+             <div class="col col-4" data-label="S.No5">
+					<img src="data:image/jpeg;base64,{{ base64_encode(complaint[5]) }}" alt="Image" width="100" height="100">
+			</div>
+        
+            <div class="col col-5" data-label="S.No5">
+                        <input type="hidden" name="idnum" value="{{ complaint[0] }}">
+                        <input type="submit" value="Send">
+             </div>
+                </form>
+                
+            </li>
+            {% endfor %}
+            
+        </ul>
+            
+</div>
+
+<div id="all_case"  style="display: none; margin-top: 100px;">
+             
+                <center>
+                <h1>Accident Records</h1>
+                </center>
+                <ul class="responsive-table">
+                    <li class="table-header">
+                        <div class="col col-1">S.No</div>
+						<div class="col col-2">Accident Type</div>
+						<div class="col col-3">Person Count</div>
+						<div class="col col-4">Date & Time</div>
+						<div class="col col-5">Accident Image</div>
+          
+                  
+                
+                
+                    </li>
+            {% for complaint in data3 %}
+
+                
+                    <li class="table-row">
+                    <div class="col col-1" data-label="S.No1">{{ complaint[0] }} </div>
+             <div class="col col-2" data-label="S.No2">{{ complaint[1] }} </div>
+             <div class="col col-3" data-label="S.No3">{{ complaint[2] }} </div>
+			 <div class="col col-3" data-label="S.No4">{{ complaint[3] }} </div>
+             <div class="col col-4" data-label="S.No5">
+					<img src="data:image/jpeg;base64,{{ base64_encode(complaint[5]) }}" alt="Image" width="100" height="100">
+			</div>       
+            
+                
+            </li>
+           
+                    {% endfor %}
+                    
+                </ul>
+                    
+</div>
+<script>
+        function showAlert() {
+            alert("Successfully accept the details .");
+        }
+
+       
+ 
+
+            function showstaffdetails() {
+                document.getElementById('new_case').style.display = 'block';
+                document.getElementById('all_case').style.display = 'none';                
+
+                
+              }
+              function showencryptuserdetails() {
+                document.getElementById('new_case').style.display = 'none';
+                document.getElementById('all_case').style.display = 'block';
+               
+            
+              }
+  
+              
+                         
+    </script>
+</body>
+</html>

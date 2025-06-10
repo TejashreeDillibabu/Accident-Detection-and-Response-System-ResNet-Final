@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+margin: 0;
+
+font-family: "Poppins", sans-serif;
+}
+body {
+ background-image: url("static/admin.jpg");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 100vh; 
+}
+        header{
+            background-color: rgba(22, 34, 57, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            box-shadow: 0 0 25px 0 rgb(255, 255, 255);
+        }
+        .container{
+            position: fixed;
+            top: 25px;
+            right: 10px;
+        }
+        .container a {
+         
+         padding: 10px 20px;
+         font-size: 17px;
+         text-transform: uppercase;
+         letter-spacing: 0.5px;
+         font-weight: 700;
+         color: white;
+         border: 2px solid transparent;
+         transition: all 0.5s;
+         text-decoration: none;
+         margin-left: 20px;
+     }
+     
+     .container a:hover,
+     .container a:active {
+         border: 2px solid #f5a425;
+     
+     }
+        .responsive-table {
+    width: 100%;
+ list-style-type: none;
+ padding: 0;
+ margin-top: 50px;
+}
+
+.table-header {
+ background-color: white;
+ color: rgb(255, 0, 0);
+ display: flex;
+ justify-content: space-between;
+ border-radius: 3px;
+ padding: 15px;
+ font-weight: bold;
+ text-transform: capitalize;
+}
+
+.table-row {
+ background-color: #ffffff;
+ box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+ border-radius: 3px;
+ padding: 15px;
+ margin-bottom: 20px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-top: 10px;
+}
+
+.table-header > .col,
+.table-row > .col {
+    width: calc(50% / 10); /* Assuming there are 6 columns */
+    /* You can adjust the number of columns as per your actual structure */
+    /* You can also adjust this value as needed */
+}
+
+@media all and (max-width: 767px) {
+ .table-header {
+   display: none;
+ }
+ .table-row {
+   display: block;
+ }
+}    
+label{
+    margin-right: 10px;
+    font-weight: bold;
+}    
+ input[type="text"],
+ input[type="password"] {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid black;
+
+ }     
+button{
+
+    padding: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    background-color: greenyellow;
+    font-weight: bold;
+    text-transform: capitalize;
+    
+ }
+button:hover{
+    background-color: rgb(122, 201, 3);
+ }   
+ h1{
+    text-transform: capitalize;
+    color: rgb(255, 0, 0);
+ }
+ .fa-sign-out {
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    color: #eea412;
+    font-size:35px;
+
+ }
+
+    </style>
+</head>
+
+<body>
+
+   
+
+        <header class="header">
+
+        <nav class="navbar">
+            <div class="container">
+               
+            <a href="#" id="register-btn" onclick="showuserdetails()">
+                New Accident Records
+            </a>
+              <a href="#" id="login-btn" onclick="showstaffdetails()">
+                All Accident Records
+              </a>
+
+             
+
+             <a href="/" id="register-btn">
+                 Logout
+             </a>
+            
+        </div>
+        </nav>
+    </header>
+
+
+    
+    <section class ="about"></section>
+
+    <div class="about-content">
+        
+        
+<div id="user-details"  style="display: none; margin-top: 100px;">
+
+<center>
+<h1> New Accidents Records</h1>
+</center>
+<ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">S.No</div>
+                <div class="col col-2">Accident Type</div>
+                <div class="col col-3">Person Count</div>
+                <div class="col col-4">Date & Time</div>
+                <div class="col col-5">Accident Image</div>          
+        
+        
+            </li>
+            {% for complaint in data %}
+
+                
+                    <li class="table-row">
+                    <div class="col col-1" data-label="S.No1">{{ complaint[0] }} </div>
+             <div class="col col-2" data-label="S.No2">{{ complaint[1] }} </div>
+             <div class="col col-3" data-label="S.No3">{{ complaint[2] }} </div>
+			 <div class="col col-3" data-label="S.No4">{{ complaint[3] }} </div>
+             <div class="col col-4" data-label="S.No5">
+					<img src="data:image/jpeg;base64,{{ base64_encode(complaint[5]) }}" alt="Image" width="100" height="100">
+			</div>       
+            
+                
+            </li>
+            {% endfor %}
+            
+        </ul>
+    
+    </div>
+
+
+
+
+<!--    -------------------------------------------------------                   ---- --- -->
+
+    <div id="staff-details"  style="display: none; margin-top: 100px;">
+
+        <center>
+        <h1>All Accident Records</h1>
+        </center>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">S.No</div>
+                <div class="col col-2">Accident Type</div>
+                <div class="col col-3">Person Count</div>
+                <div class="col col-4">Date & Time</div>
+                <div class="col col-5">Accident Image</div> 
+				<div class="col col-6">Action Taken By</div>				
+        
+        
+            </li>
+            {% for complaint in data1 %}
+
+                
+            <li class="table-row">
+             <div class="col col-1" data-label="S.No1">{{ complaint[0] }} </div>
+             <div class="col col-2" data-label="S.No2">{{ complaint[1] }} </div>
+             <div class="col col-3" data-label="S.No3">{{ complaint[2] }} </div>
+			 <div class="col col-4" data-label="S.No4">{{ complaint[3] }} </div>
+             <div class="col col-5" data-label="S.No5">
+					<img src="data:image/jpeg;base64,{{ base64_encode(complaint[5]) }}" alt="Image" width="100" height="100">
+			 </div> 
+			 <div class="col col-6" data-label="S.No6">
+				{% if complaint[6] == '1' or complaint[6] == '3' %}
+					Police
+				{% elif complaint[6] == '2' %}
+					Hospital
+				{% endif %}
+			 </div>			
+						
+                
+            </li>
+            {% endfor %}
+            
+        </ul>
+    
+            
+</div>
+
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------------- -->
+           
+
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+    <div id="encrypt_user-details"  style="display: none; margin-top: 100px;">
+                   
+                        <center>
+                        <h1>Email Actions</h1>
+                       
+                        </center>
+                        <ul class="responsive-table">
+								<li class="table-header">
+									<div class="col col-1">S.No</div>
+									<div class="col col-2">Accident Type</div>
+									<div class="col col-3">Person Count</div>
+									<div class="col col-4">Date & Time</div>
+									<div class="col col-5">Accident Image</div>          
+							
+							
+								</li>
+								{% for complaint in data2 %}
+
+									
+								 <li class="table-row">
+								 <div class="col col-1" data-label="S.No1">{{ complaint[0] }} </div>
+								 <div class="col col-2" data-label="S.No2">{{ complaint[1] }} </div>
+								 <div class="col col-3" data-label="S.No3">{{ complaint[2] }} </div>
+								 <div class="col col-3" data-label="S.No4">{{ complaint[3] }} </div>
+								 <div class="col col-4" data-label="S.No5">
+										<img src="data:image/jpeg;base64,{{ base64_encode(complaint[5]) }}" alt="Image" width="100" height="100">
+								</div>       
+								
+									
+								</li>
+								{% endfor %}
+								
+							</ul>
+                            
+                            </div>
+</div>
+
+<!-- -----------------------------               ------------                ----------------- -->
+
+
+
+
+    <script>
+        function showAlert() {
+            alert("Successfully accept the details .");
+        }
+
+
+       
+            function showuserdetails() {
+              document.getElementById('user-details').style.display = 'block';
+              document.getElementById('staff-details').style.display = 'none';
+              document.getElementById('encrypt_staff-details').style.display = 'none';            
+
+
+              
+            }
+
+            function showstaffdetails() {
+                document.getElementById('user-details').style.display = 'none';
+                document.getElementById('staff-details').style.display = 'block';
+                document.getElementById('encrypt_staff-details').style.display = 'none';               
+
+                
+              }
+
+             
+  
+              function showencryptstaffdetails() {
+                  document.getElementById('user-details').style.display = 'none';
+                  document.getElementById('staff-details').style.display = 'none';
+                  document.getElementById('encrypt_staff-details').style.display = 'block';                   
+
+                }                
+                
+                         
+    </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const acceptButtons = document.querySelectorAll(".accept-button");
+            acceptButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    const itemId = button.getAttribute("data-id");
+                    const numberInput = document.querySelector("input[name='number']");
+                    numberInput.value = itemId; 
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const acceptButtons = document.querySelectorAll(".accept-button1");
+            acceptButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    const itemId = button.getAttribute("data-id");
+                    const numberInput = document.querySelector("input[name='number1']");
+                    numberInput.value = itemId; 
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const acceptButtons = document.querySelectorAll(".accept-button2");
+            acceptButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    const itemId = button.getAttribute("data-id");
+                    const numberInput = document.querySelector("input[name='number2']");
+                    numberInput.value = itemId; 
+                });
+            });
+        });
+    </script>
+
+
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeImageModal()">&times;</span>
+        <div class="modal-content">
+            <img id="fullSizeImage" src="" alt="Full-size Image">
+        </div>
+    </div>
+
+    <script>
+        // JavaScript functions to show and close the image modal
+        function showImage(base64Image) {
+            var fullSizeImage = document.getElementById("fullSizeImage");
+            fullSizeImage.src = "data:image/jpeg;base64," + base64Image;
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "block";
+        
+            // Add an event listener for the "keydown" event to close the modal on "Esc" key press
+            document.addEventListener("keydown", closeImageModalOnEsc);
+        }
+        
+        function closeImageModal() {
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        
+            // Remove the event listener for "Esc" key when the modal is closed
+            document.removeEventListener("keydown", closeImageModalOnEsc);
+        }
+        
+        // Function to close the modal on "Esc" key press
+        function closeImageModalOnEsc(event) {
+            if (event.key === "Escape") {
+                closeImageModal();
+            }
+        }
+    </script>
+    <script>
+        // JavaScript to toggle sidebar visibility
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.style.display = (sidebar.style.display === 'none' || sidebar.style.display === '') ? 'block' : 'none';
+        }
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESCUE WHEELZ.COM</title>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2? family=poppins:wght@300;400;500;600;700;800;900;& display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins',sans-serif;
+        }
+        
+        body {
+            background-color: black;
+            background-color: black;
+            background-image: url("static/staff.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh; 
+        }
+
+        .responsive-table {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 100px;
+}
+
+.table-header, .table-row {
+    display: flex;
+    
+    border-radius: 3px;
+    padding: 15px;
+    font-weight: bold;
+    align-items: center; /* Added alignment */
+}
+
+.table-header {
+    background-color: #8fe2f7;
+    color: black;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1); /* Added shadow */
+    margin-bottom: 20px; /* Moved margin here */
+}
+
+.table-row {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.col {
+    flex-basis: calc(100% / 5); /* Adjusted for 5 columns */
+}
+
+@media all and (max-width: 767px) {
+    .table-header {
+        display: none;
+    }
+    .table-row {
+        display: block;
+    }
+}
+header {
+    background-color: rgba(22, 34, 57, 0.95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    box-shadow: 0 0 25px 0 black;
+}
+.container {
+            position: fixed;
+            top: 25px;
+            right: 50px;
+        }
+
+        .container a {
+         
+    padding: 10px 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: white;
+    border: 2px solid transparent;
+    transition: all 0.5s;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.container a:hover,
+.container a:active {
+    border: 2px solid #f5a425;
+
+}
+input[type="submit"]{
+    background-color: #f5a425;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+
+<body>
+   <header>
+    <nav>
+        <div class="container">
+            <a href="/staffview">Back</a>  
+        </nav>
+    </header>
+<center>
+<h1> assignment Details</h1>
+
+</center>
+
+<ul class="responsive-table">
+    <li class="table-header">
+        <div class="col col-1">Id No</div>
+        <div class="col col-2">Reg No</div>
+        <div class="col col-3">Section</div>
+        <div class="col col-4">Name</div>
+        <div class="col col-5">Feed Back</div>
+  
+    </li>
+    {% for complaint in data %}
+    <li class="table-row">
+        <div class="col col-1" data-label="S.No">{{complaint[0]}}</div>
+        <div class="col col-2" data-label="Name">{{complaint[1]}}</div>
+        <div class="col col-3" data-label="Email">{{complaint[2]}}</div>
+        <div class="col col-4" data-label="Address">{{complaint[3]}}</div>
+        <div class="col col-5" data-label="feedback">{{complaint[4]}}</div>
+    </li>
+    {% endfor %}
+    
+</ul>
+    
+    </div>
+
+</body>
+</html>

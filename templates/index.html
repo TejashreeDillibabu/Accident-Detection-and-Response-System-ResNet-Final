@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  
+  font-family: "Poppins", sans-serif;
+}
+        body{
+           
+            background-image: url("static/index.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh; 
+        }
+ 
+        .container {
+            position: fixed;
+            top: 25px;
+            right: 50px;
+        }
+
+        .container a {
+         
+    padding: 10px 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: white;
+    border: 2px solid transparent;
+    transition: all 0.5s;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.container a:hover,
+.container a:active {
+    border: 2px solid #f5a425;
+
+}
+        header {
+    background-color: rgba(22, 34, 57, 0.95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    box-shadow: 0 0 25px 0 black;
+}
+header img {
+    height: 80px;
+}
+.container1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+#register-form,
+        #login-form,
+        #admin-form ,
+        #servicereg-form,
+		#adminreg-form,
+		#adminlogin-form,
+        #servicelogin-form{
+            
+            width: 300px;
+            padding: 20px;
+            background-color: aliceblue;
+            border-radius: 10px;    
+            box-shadow: 0 0px 10px rgb(0, 0, 0); 
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            text-align: center;
+            color: white;
+           
+        }
+		
+		button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100px;
+            margin-left: 100px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .form-footer a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+		input[type="file"] {
+            margin: 10px;
+        }
+        .container h1{
+            position: fixed;
+            top: 10px;
+            left: 50px;
+            font-size: 36px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: #fff;
+        }
+        em {
+    font-style: normal;
+    color: #f5a425;
+}
+    </style>
+</head>
+<body>
+    <header>
+    
+    <nav>
+    <div class="container">
+        <h1>
+        <em>ACCIDENT</em>
+        MONITORING
+    </h1>
+        <a href="#" class="home" id="home"  onclick="showhome()">HOME</a>
+        <a href="#" class="btn1" id="btn1"  onclick="showRegisterForm()">POLICE</a> 
+        <a href="#"class="btn3" id="btn3" onclick="showServiceProviderForm()">HOSPITAL</a>
+		<a href="#"class="btn2" id="btn2" onclick="showadminForm()">ADMIN</a>
+    </div>
+    </nav>
+	
+	
+    </header>
+	
+	
+
+	
+	
+    <div class="container1">
+	
+	<center>
+	<div id="camera" style="display: block;">
+		<form action="/start_camera" method="post">
+			<button type="submit">Open Camera</button>
+		</form>
+		<br>
+		
+		<h2>Upload Video for Accident Detection</h2>
+
+		
+		<form action="/upload_video" method="post" enctype="multipart/form-data">
+        <input type="file" name="video" accept="video/*" required>
+        <br>
+        <button type="submit">Upload & Process</button>
+    </form>
+    </div>
+	</center>
+	
+    
+    <div id="register-form"  style="display: none;">
+
+
+        <form action="/register" method="post" >
+            <h2>Police Register</h2>
+            <label for="regno">Police Station</label>
+            <input type="text" name="regno" id="regno" required>			
+            
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>            
+            <input type="submit" value="Register">
+        </form>
+            <div class="form-footer">
+                <p>Already have an account?</p> <a href="#" onclick="toggleForm()">Login here</a>
+            </div>    
+    </div>
+	
+    <div id="login-form" class="login-form" style="display: none;">
+        <form action="/login" method="post" >
+            <h2>Police Login</h2>
+            <label for="regno">POLICE ID</label>
+            <input type="text" name="regno" id="regno" required>
+            <label for="password">Password</label>
+            <input type="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+        <div  class="form-footer">
+                <p>Don't have an account?</p><a href="#" onclick="toggleForm()">Register here</a>
+        </div>    
+    </div>
+    
+    
+     <div id="servicereg-form" style="display: none;" enctype="multipart/form-data">
+        <form action="/service" method="post">
+            <h2>Hospital Register</h2>
+            <label for="StaffId">Hospital Name</label>
+            <input type="text" name="StaffId">           
+
+            <label for="StaffName">Hospital Id</label>
+            <input type="text" name="StaffName">
+            <label for="password">Password</label>
+            <input type="password" name="password">
+            <input type="submit" value="Register">
+            <div class="form-footer">
+                <p>Already have an account?</p> <a href="#" onclick="toggleForm1()">Login here</a>
+            </div>
+        </form>
+     </div>
+	 
+     <div id="servicelogin-form" class="login-form" style="display: none;" enctype="multipart/form-data">
+        <form action="/service_login" method="post" >
+            <h2>Hospital Login</h2>
+            <label for="StaffId">Hospital Name</label>
+            <input type="text" name="StaffId" required>
+            <label for="password">Password</label>
+            <input type="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+        <div  class="form-footer">
+                <p>Don't have an account?</p><a href="#" onclick="toggleForm1()">Register here</a>
+        </div>    
+    </div>
+	
+	 
+	  <div id="adminlogin-form" class="login-form" style="display: none;" enctype="multipart/form-data">
+        <form action="/admin_login" method="post" >
+            <h2>Admin Login</h2>
+            <label for="StaffId">User Id</label>
+            <input type="text" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+         
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $('#register-form').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/register',
+                data: $(this).serialize(),
+                success: function(response) {
+                    var responseData = JSON.parse(response);
+                    if (responseData.type === 'error') {
+                        alert(responseData.message);
+                    } else if (responseData.type === 'success') {
+                        alert(responseData.message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<script>
+ function toggleForm(){
+    var registerForm=document.getElementById('register-form');
+    var loginForn=document.getElementById('login-form');
+
+    if(registerForm.style.display == "none"){
+        registerForm.style.display = "block";
+        loginForn.style.display = "none"
+    }else{
+        registerForm.style.display = "none";
+        loginForn.style.display = "block"
+    }
+ }
+</script>
+<script>
+    function toggleForm1(){
+       var registerForm=document.getElementById('servicereg-form');
+       var loginForn=document.getElementById('servicelogin-form');
+	  
+   
+       if(registerForm.style.display == "none"){
+           registerForm.style.display = "block";
+           loginForn.style.display = "none"
+       }else{
+           registerForm.style.display = "none";
+           loginForn.style.display = "block"
+       }
+    }
+</script>
+<script>
+    function toggleForm2(){
+       var registerForm=document.getElementById('adminreg-form');
+       var loginForn=document.getElementById('adminlogin-form');
+	  
+   
+       if(registerForm.style.display == "none"){
+           registerForm.style.display = "block";
+           loginForn.style.display = "none"
+       }else{
+           registerForm.style.display = "none";
+           loginForn.style.display = "block"
+       }
+    }
+   </script>
+<script>
+    function showRegisterForm() {
+        document.getElementById('register-form').style.display = 'block';
+        document.getElementById('login-form').style.display = 'none';
+        
+        document.getElementById('servicereg-form').style.display = 'none';
+        document.getElementById('servicelogin-form').style.display = 'none';
+		
+		
+        document.getElementById('adminlogin-form').style.display = 'none';
+        document.getElementById('camera').style.display = 'none';
+        
+        document.getElementById('btn1').style.display = 'none';
+
+     
+
+    }
+	function showadminForm() {
+        document.getElementById('servicereg-form').style.display = 'none';
+        document.getElementById('servicelogin-form').style.display = 'none';
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('adminlogin-form').style.display = 'block';
+        document.getElementById('camera').style.display = 'none';
+        
+        document.getElementById('btn2').style.display = 'none';
+     
+    }
+
+    function showServiceProviderForm() {
+        document.getElementById('servicereg-form').style.display = 'block';
+        document.getElementById('servicelogin-form').style.display = 'none';
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('login-form').style.display = 'none';
+		
+        document.getElementById('adminlogin-form').style.display = 'none';
+        document.getElementById('camera').style.display = 'none';
+
+        
+        document.getElementById('btn3').style.display = 'none';
+        
+    }
+
+</script>
+<script>
+    function showhome() {
+        // Show all navigation links
+        document.getElementById('btn1').style.display = 'inline-block';
+        document.getElementById('btn3').style.display = 'inline-block';
+		document.getElementById('btn2').style.display = 'inline-block';
+        document.getElementById('camera').style.display = 'inline-block';
+        // Hide other forms
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('login-form').style.display = 'none';
+        
+       
+        document.getElementById('servicereg-form').style.display = 'none';
+        document.getElementById('servicelogin-form').style.display = 'none';
+		
+		
+        document.getElementById('adminlogin-form').style.display = 'none';
+
+    }
+</script>
+<script>
+    // JavaScript variable to store whether alerts should be shown
+    var showAlert1 = {{ 'true' if show_alert1 else 'false' }};
+    var showAlert2 = {{ 'true' if show_alert2 else 'false' }};
+    var showAlert3= {{ 'true' if show_alert3 else 'false'}};
+    var showAlert4= {{ 'true' if show_alert4 else 'false'}};
+
+    // Function to trigger alerts based on the variables
+    function triggerAlerts() {
+        if (showAlert1) { 
+            alert("Your RegNo is already registered");
+        }
+        if (showAlert2) {
+            alert("Registered Successfully!");
+           
+        }
+        if (showAlert3){
+            alert("This Id already registered");
+        }
+        if(showAlert4){
+            alert("This Id not registered")
+        }
+    }
+
+    // Call the function when the page loads
+    window.onload = function() {
+        triggerAlerts();
+    };
+</script>
+
+
+</body>
+</html>
